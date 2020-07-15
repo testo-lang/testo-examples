@@ -1,0 +1,72 @@
+
+machine win10 {
+	cpus: 2
+	ram: 2Gb
+	iso: "${ISO_DIR}/Win10_2004_English_x64.iso"
+	disk main: {
+		size: 20Gb
+	}
+}
+
+test win10_installation_part_1 {
+	win10 {
+		start
+		wait "Language to install" && "English" timeout 10m;
+		mouse click "Next".from_bottom(0)
+		mouse click "Install now"
+		wait "Activate Windows" timeout 5m
+		mouse click "I don't have a product key".from_bottom(0)
+		mouse click "Windows 10 Pro".from_top(0)
+		mouse click "Next"
+		mouse click "I accept the license terms"
+		mouse click "Next"
+		mouse click "Install Windows only"
+		wait "Where do you want to install Windows?"
+		mouse click "Next".center_bottom()
+		wait "United States" timeout 30m
+	}
+}
+
+test win10_installation_part_2: win10_installation_part_1 {
+	win10 {
+		mouse click "Yes".from_bottom(0).center_bottom()
+		wait "keyboard layout"
+		mouse click "Yes".from_bottom(0).center_bottom()
+		mouse click "Skip".center_bottom()
+		mouse click "I don't have internet".center_bottom()
+		mouse click "Continue with limited setup"
+		wait "What name do you want to use?"
+		type "testo"
+		mouse click "Next".center_bottom()
+		wait "Create a super memorable password"
+		type "1111"
+		mouse click "Next".center_bottom()
+		wait "Type your password one last time"
+		type "1111"
+		mouse click "Next".center_bottom()
+		mouse click "Security question (1 of 3)";
+		mouse click "What was your first pet's name?";
+		mouse click "Your answer"
+		type "Snowflake"
+		mouse click "Next".center_bottom()
+		mouse click "Security question (2 of 3)";
+		mouse click "What was your childhood nickname?";
+		mouse click "Your answer"
+		type "Snowflake"
+		mouse click "Next".center_bottom()
+		mouse click "Security question (3 of 3)";
+		mouse click "What's the first name of your oldest cousin?";
+		mouse click "Your answer"
+		type "Snowflake"
+		mouse click "Next".center_bottom()
+		wait "Microsoft puts you in control"
+		mouse click "Accept".from_bottom(0).center_bottom()
+		wait "If you want timeline"
+		mouse click "No".from_bottom(0).center_bottom()
+		wait "To let Cortana provide"
+		mouse click "Not now".from_bottom(0).center_bottom()
+		wait "Recycle Bin" timeout 10m
+		sleep 5s
+	}
+}
+
