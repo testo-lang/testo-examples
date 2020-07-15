@@ -7,7 +7,7 @@ flash my_super_flash {
 	folder: "./dist"
 }
 
-test win10_install_my_super_app: win10_installation_part_2 {
+test install_my_super_app: win10_installation_part_2 {
 	win10 {
 		plug flash my_super_flash
 		mouse click "USB Drive (E:)"
@@ -29,5 +29,28 @@ test win10_install_my_super_app: win10_installation_part_2 {
 		press LeftAlt + F4
 		wait !"USB Drive (E:)"
 		unplug flash my_super_flash
+	}
+}
+
+[no_snapshots: true]
+test test_desktop_icon: install_my_super_app {
+	win10 {
+		mouse dclick "MySuperApp"
+		wait "MySuperApp is working!"
+	}
+}
+
+[no_snapshots: true]
+test test_context_menu: install_my_super_app {
+	win10 {
+		mouse move 300 200
+		mouse rclick
+		mouse move "New"
+		mouse click "Text Document".from_bottom(0)
+		wait "New Text"
+		press Enter
+		mouse rclick "New Text"
+		mouse click "Open with My Super App"
+		wait "Opened New Text Document.txt"
 	}
 }
