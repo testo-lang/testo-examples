@@ -1,0 +1,41 @@
+
+include "os_installation.testo"
+
+flash my_super_flash {
+	fs: "ntfs"
+	size: 16Mb
+	folder: "./dist"
+}
+
+test install_my_super_app: win10_installation_part_2 {
+	win10 {
+		plug flash my_super_flash
+		mouse click "USB Drive (E:)"
+		sleep 5s
+		mouse click "Open folder to view files"
+		mouse dclick "MySuperApp"
+		wait "The installer will guide you through the steps"
+		mouse click "Next".from_bottom(0)
+		wait "Select Installation Folder"
+		mouse click "Everyone"
+		mouse click "Next".from_bottom(0)
+		wait "Confirm Installation"
+		mouse click "Next".from_bottom(0)
+		wait "Do you want to allow this app"
+		mouse click "Yes".from_bottom(0)
+		wait "Installation complete"
+		mouse click "Close".from_bottom(0)
+		wait !"Installation complete"
+		press LeftAlt + F4
+		wait !"USB Drive (E:)"
+		unplug flash my_super_flash
+	}
+}
+
+[no_snapshots: true]
+test run_as_user: install_my_super_app {
+	win10 {
+		mouse dclick "MySuperApp"
+		wait "Users count: 6"
+	}
+}
