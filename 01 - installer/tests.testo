@@ -9,25 +9,44 @@ flash my_super_flash {
 
 test install_my_super_app: win10_prepare {
 	win10 {
+		# Вставим флешку и откроем её в проводнике
 		plug flash my_super_flash
 		mouse click "USB Drive (E:)"
 		sleep 5s
 		mouse click "Open folder to view files"
+
+		# Запустим инсталлятор MySuperApp
 		mouse dclick "MySuperApp"
+
+		# Экран приветствия
 		wait "The installer will guide you through the steps"
 		mouse click "Next".from_bottom(0)
+
+		# Экран выбора каталога для устаноки
 		wait "Select Installation Folder"
 		mouse click "Everyone"
 		mouse click "Next".from_bottom(0)
+
+		# Экран подтверждения выбранных настроек
 		wait "Confirm Installation"
 		mouse click "Next".from_bottom(0)
+
+		# Разрешаем инсталлятору внести изменения в систему
 		wait "Do you want to allow this app"
 		mouse click "Yes".from_bottom(0)
+
+		# Экран успешного завершения установки
 		wait "Installation complete"
+
+		# Закрываем окно инсталлятора
 		mouse click "Close".from_bottom(0)
 		wait !"Installation complete"
+
+		# Закрываем окно Проводника
 		press LeftAlt + F4
 		wait !"USB Drive (E:)"
+
+		# По окончании теста флешку необходимо вытащить
 		unplug flash my_super_flash
 	}
 }
@@ -35,7 +54,10 @@ test install_my_super_app: win10_prepare {
 [no_snapshots: true]
 test test_desktop_icon: install_my_super_app {
 	win10 {
+		# Запускаем MySuperApp с помощью иконки на рабочем столе
 		mouse dclick "MySuperApp"
+
+		# Убедимся, что MySuperApp действительно запустился
 		wait "MySuperApp is working!"
 	}
 }
@@ -43,14 +65,24 @@ test test_desktop_icon: install_my_super_app {
 [no_snapshots: true]
 test test_context_menu: install_my_super_app {
 	win10 {
+		# Кликнем правой кнопкой мыши на случайном месте рабочего стола
 		mouse move 300 200
 		mouse rclick
+
+		# Создадим новый текстовый документ
 		mouse move "New"
 		mouse click "Text Document".from_bottom(0)
 		wait "New Text"
 		press Enter
+
+		# Кликнем правой кнопкой мыши по только что созданному файлу
 		mouse rclick "New Text"
+
+		# Убедимся, что инсталлятор внёс изменения в реестр,
+		# и в контекстном меню Проводника появился новый пункт
 		mouse click "Open with My Super App"
+
+		# Убедимся, что MySuperApp запускается с нужными аргументами
 		wait "Opened New Text Document.txt"
 	}
 }
@@ -58,26 +90,45 @@ test test_context_menu: install_my_super_app {
 [no_snapshots: true]
 test uninstall_my_super_app: install_my_super_app {
 	win10 {
+		# Откроем окно "Apps & Features"
 		mouse click "Type here to search"
 		wait "Top apps"
 		type "Apps & Features"
 		wait "System settings"
 		press Enter
+
+		# Найдём "My Super App" через строку поиска
 		mouse click "Search this list"
 		sleep 5s
 		type "My Super App"
 		wait "1 app found"
+
+		# Немножко прокрутим окно вниз
 		press Down
 		sleep 5s
+
+		# Запустим удаление MySuperApp
 		mouse click "My Super App".from_bottom(0)
 		mouse click "Uninstall"
+
+		# Подтвердим, Что мы хотим удалить MySuperApp
 		wait "This app and its related"
 		mouse click "Uninstall".from_bottom(1)
+
+		# Окно UAC запускается, но оно неактивно.
+		# Нам нужно вывести его на передний план.
 		sleep 5s
 		press LeftAlt+Tab
+
+		# Разрешаем инсталлятору внести изменения в систему
 		wait "Do you want to allow"
 		mouse click "Yes"
+
+		# После того, как инсталлятор отработает,
+		# MySuperApp должен исчезнуть из списка программ
 		wait "We couldn't find"
+
+		# Закрываем окно "Apps & Features"
 		press LeftAlt+F4
 		wait !"My Super App"
 	}

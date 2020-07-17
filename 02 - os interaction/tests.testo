@@ -95,6 +95,8 @@ test run_as_admin: win10_prepare {
 		wait "Users" && "Groups"
 		mouse dclick "Users".from_right(1)
 		wait "MyAwesomeUser"
+
+		# По окончании теста флешку необходимо вытащить
 		unplug flash my_super_flash
 	}
 }
