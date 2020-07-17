@@ -137,6 +137,7 @@ test win10_prepare: win10_installation {
 		# и снимаем галочку с пункта "Allow the computer to turn off ..."
 		mouse click "Power Management"
 		mouse click "Allow the computer"
+		sleep 5s
 
 		# Закрываем окно свойств устройства "USB Input Device"
 		press Enter
