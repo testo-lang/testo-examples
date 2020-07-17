@@ -7,7 +7,7 @@ flash my_super_flash {
 	folder: "./dist"
 }
 
-test install_my_super_app: win10_installation_part_2 {
+test install_my_super_app: win10_prepare {
 	win10 {
 		plug flash my_super_flash
 		mouse click "USB Drive (E:)"

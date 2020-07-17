@@ -7,35 +7,29 @@ flash my_super_flash {
 	folder: "./dist"
 }
 
-test install_my_super_app: win10_installation_part_2 {
+[no_snapshots: true]
+test run_as_user: win10_prepare {
 	win10 {
 		plug flash my_super_flash
 		mouse click "USB Drive (E:)"
 		sleep 5s
 		mouse click "Open folder to view files"
 		mouse dclick "MySuperApp"
-		wait "The installer will guide you through the steps"
-		mouse click "Next".from_bottom(0)
-		wait "Select Installation Folder"
-		mouse click "Everyone"
-		mouse click "Next".from_bottom(0)
-		wait "Confirm Installation"
-		mouse click "Next".from_bottom(0)
-		wait "Do you want to allow this app"
-		mouse click "Yes".from_bottom(0)
-		wait "Installation complete"
-		mouse click "Close".from_bottom(0)
-		wait !"Installation complete"
-		press LeftAlt + F4
-		wait !"USB Drive (E:)"
-		unplug flash my_super_flash
-	}
-}
-
-[no_snapshots: true]
-test run_as_user: install_my_super_app {
-	win10 {
-		mouse dclick "MySuperApp"
 		wait "Users count: 6"
+		wait "You need to run this app"
+		mouse click "Type here to search"
+		wait "Top apps"
+		type "Computer Management"
+		wait "Open"
+		press Enter
+		mouse click "Local Users"
+		wait "Users" && "Groups"
+		mouse rclick "Users".from_right(1)
+		mouse click "New User"
+		wait "User name"
+		type "MySuperUser"
+		mouse click "Create"
+		abort "stop here"
+		unplug flash my_super_flash
 	}
 }

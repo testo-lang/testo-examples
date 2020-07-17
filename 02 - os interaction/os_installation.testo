@@ -70,3 +70,21 @@ test win10_installation_part_2: win10_installation_part_1 {
 	}
 }
 
+test win10_prepare: win10_installation_part_2 {
+	win10 {
+		mouse click "Type here to search"
+		wait "Top apps"
+		type "Device Manager"
+		wait "Open"
+		press Enter
+		mouse dclick "Human Interface Devices"
+		mouse move 0 0
+		mouse dclick "USB Input Device"
+		mouse click "Power Management"
+		mouse click "Allow the computer"
+		press Enter
+		wait !"Power Management"
+		press LeftAlt+F4
+		wait !"Device Manager"
+	}
+}
