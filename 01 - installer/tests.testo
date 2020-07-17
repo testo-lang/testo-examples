@@ -127,9 +127,5 @@ test uninstall_my_super_app: install_my_super_app {
 		# После того, как инсталлятор отработает,
 		# MySuperApp должен исчезнуть из списка программ
 		wait "We couldn't find"
-
-		# Закрываем окно "Apps & Features"
-		press LeftAlt+F4
-		wait !"My Super App"
 	}
 }
