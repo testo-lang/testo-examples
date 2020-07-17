@@ -77,9 +77,8 @@ test run_as_admin: win10_prepare {
 
 		# Добавим нового пользователя с помощью MySuperApp
 		mouse click "Enter user name here".right_center().move_right(40)
-		sleep 5s
 		type "MyAwesomeUser"
-		mouse dclick "Add!"
+		mouse click "Add!"
 		wait "Users count: 7"
 
 		# Откроем окно "Computer Management"
