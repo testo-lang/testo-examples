@@ -78,6 +78,7 @@ void add_user(const std::string& name) {
 App::App(const std::vector<std::string>& args): _args(args)
 {
 	ImGui::GetIO().IniFilename = nullptr;
+	ImGui::StyleColorsLight();
 }
 
 

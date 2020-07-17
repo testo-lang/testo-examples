@@ -5,12 +5,14 @@
 
 App::App(const std::vector<std::string>& args): _args(args)
 {
+	ImGui::GetIO().IniFilename = nullptr;
+	ImGui::StyleColorsLight();
 }
 
 
 void App::render() {
+	ImGui::SetNextWindowSize({300, 100}, ImGuiCond_FirstUseEver);
 	ImGui::Begin("Hello world");
-	ImGui::SetWindowSize({300, 100});
 	std::string text = "MySuperApp is working!";
 	if (_args.size() > 1) {
 		auto path = std::experimental::filesystem::path(_args.at(1));
