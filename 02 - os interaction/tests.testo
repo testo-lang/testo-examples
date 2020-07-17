@@ -10,26 +10,91 @@ flash my_super_flash {
 [no_snapshots: true]
 test run_as_user: win10_prepare {
 	win10 {
+		# Вставим флешку и откроем её в проводнике
 		plug flash my_super_flash
 		mouse click "USB Drive (E:)"
 		sleep 5s
 		mouse click "Open folder to view files"
+
+		# Запустим MySuperApp и убедимся, что он работает
 		mouse dclick "MySuperApp"
 		wait "Users count: 6"
+
+		# MySuperApp должен предупреждать пользователя,
+		# что он запущен не от имени администратора
 		wait "You need to run this app"
+
+		# Откроем окно "Computer Management"
 		mouse click "Type here to search"
 		wait "Top apps"
 		type "Computer Management"
 		wait "Open"
 		press Enter
+
+		# Откроем окно добавления нового пользователя
 		mouse click "Local Users"
 		wait "Users" && "Groups"
 		mouse rclick "Users".from_right(1)
 		mouse click "New User"
 		wait "User name"
+
+		# Создадим нового пользователя
 		type "MySuperUser"
 		mouse click "Create"
-		abort "stop here"
+
+		# Закроем окно добавления нового опльзователя
+		mouse click "Close"
+		wait !"User name"
+
+		# Закроем окно "Computer Management"
+		press LeftAlt+F4
+		wait !"Computer Management"
+
+		# Убедимся, что пользователь, добавленный средствами
+		# операционно системы, появился в окне MySuperApp
+		wait "Users count: 7" && "MySuperUser"
+
+		# По окончании теста флешку необходимо вытащить
+		unplug flash my_super_flash
+	}
+}
+
+[no_snapshots: true]
+test run_as_admin: win10_prepare {
+	win10 {
+		# Вставим флешку и откроем её в проводнике
+		plug flash my_super_flash
+		mouse click "USB Drive (E:)"
+		sleep 5s
+		mouse click "Open folder to view files"
+
+		# Запустим MySuperApp от имени администратора
+		mouse rclick "MySuperApp"
+		mouse click "Run as administrator"
+		wait "Do you want"
+		mouse click "Yes"
+		wait "Users count: 6"
+
+		# Добавим нового пользователя с помощью MySuperApp
+		mouse click "Enter user name here".right_center().move_right(40)
+		sleep 5s
+		type "MyAwesomeUser"
+		mouse dclick "Add!"
+		wait "Users count: 7"
+
+		# Откроем окно "Computer Management"
+		mouse click "Type here to search"
+		wait "Top apps"
+		type "Computer Management"
+		wait "Open"
+		press Enter
+
+		# Откроем список пользователей и убедимся, что
+		# среди них присутствует пользователь MyAwesomeUser
+		mouse click "Local Users"
+		wait "Users" && "Groups"
+		mouse dclick "Users".from_right(1)
+		wait "MyAwesomeUser"
 		unplug flash my_super_flash
 	}
 }
