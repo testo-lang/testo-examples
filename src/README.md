@@ -1,3 +1,3 @@
-# Исходные коды приложения MySuperApp
+# MySuperApp source code
 
-В этом каталоге находятся исходные коды приложения MySuperApp для каждого из примеров. Эти исходные коды НЕ нужны для запуска тестов. В каждом примере уже есть собранный дистрибутив приложения MySuperApp.
+This directory contains the source codes for the MySuperApp application. These source codes are not required to run the tests. Each example already has a pre-built MySuperApp package.

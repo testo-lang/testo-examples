@@ -1,7 +1,7 @@
-# Добро пожаловать!
+# Welcome!
 
-Этот репозиторий содержит примеры автотестов, которые можно написать с помощью платформы Testo. Скачать платформу Testo и узнать больше информации о ней вы можете на сайте [testo-lang.ru](https://testo-lang.ru).
+This repo contains some example scripts you can implement using the Testo Framework. You can download and learn more about the Testo Framework on the website [testo-lang.ru](https://testo-lang.ru).
 
-В каждом каталоге с примерами Вы найдёте описание, что именно тестирует данный пример, и инструкции, как запустить этот пример на Вашей машине.
+Each directory contains a separate example. There you'll find the description and instructions necessary to run the scripts on your machine.
 
-Приятного тестирования!
+Enjoy the testing!

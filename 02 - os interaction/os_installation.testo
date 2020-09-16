@@ -12,138 +12,136 @@ test win10_installation {
 	win10 {
 		start
 
-		# Экран выбора языка
+		# The language selection screen
 		wait "Language to install" && "English" timeout 10m;
 		mouse click "Next".from_bottom(0)
 
-		# Экран с единственной кнопкой - "Install Now"
+		# The screen with the single "Install Now" button
 		mouse click "Install now"
 
-		# Экран активации Windows
+		# The Windows activation screen
 		wait "Activate Windows" timeout 5m
 		mouse click "I don't have a product key".from_bottom(0)
 
-		# Экран выбора редакции
+		# The edition selection screen
 		mouse click "Windows 10 Pro".from_top(0)
 		mouse click "Next"
 
-		# Экран с лицензионным соглашением
+		# The License agreement screen
 		mouse click "I accept the license terms"
 		mouse click "Next"
 
-		# Экран выбора типа установки
+		# The installation type selection screen
 		mouse click "Install Windows only"
 
-		# Экран выбора диска, на который будет установлена Windows
+		# The disk selection screen
 		wait "Where do you want to install Windows?"
 		mouse click "Next".center_bottom()
 
-		# Далее идёт долгий процесс копирования файлов на диск
-		# с последующей автоматической перезагрузкой
+		# Long copying files routing with an automactic restart
 
-		# Экран выбора региона
+		# The region selection screen
 		wait "United States" timeout 30m
 		mouse click "Yes".from_bottom(0).center_bottom()
 
-		# Экран выбора раскладки клавиатуры
+		# The keyboard layout seleciton screen
 		wait "keyboard layout"
 		mouse click "Yes".from_bottom(0).center_bottom()
 
-		# Экран выбора дополнительной раскладки клавиатуры
+		# The additional keyboard layout selection screen
 		mouse click "Skip".center_bottom()
 
-		# Экран подключения к Интернету
+		# The Internet access screen
 		mouse click "I don't have internet".center_bottom()
 
-		# Экран, на котором Windows перечисляет все прелести
-		# подключения к Интернету
+		# The screen with the benefits of having the Internet access
 		mouse click "Continue with limited setup"
 
-		# Экран задания имени пользователя
+		# The user specifying screen
 		wait "What name do you want to use?"
 		type "testo"
 		mouse click "Next".center_bottom()
 
-		# Экран задания пароля пользователя
+		# The password specifying screen
 		wait "Create a super memorable password"
 		type "1111"
 		mouse click "Next".center_bottom()
 
-		# Экран повторного ввода пароля пользователя
+		# Repeat the password screen
 		wait "Type your password one last time"
 		type "1111"
 		mouse click "Next".center_bottom()
 
-		# Экран выбора первого контрольного вопроса
+		# Security question #1 sceeen
 		mouse click "Security question (1 of 3)";
 		mouse click "What was your first pet's name?";
 		mouse click "Your answer"
 		type "Snowflake"
 		mouse click "Next".center_bottom()
 
-		# Экран выбора второго контрольного вопроса
+		# Security question #2 sceeen
 		mouse click "Security question (2 of 3)";
 		mouse click "What was your childhood nickname?";
 		mouse click "Your answer"
 		type "Snowflake"
 		mouse click "Next".center_bottom()
 
-		# Экран выбора третьего контрольного вопроса
+		# Security question #3 sceeen
 		mouse click "Security question (3 of 3)";
 		mouse click "What's the first name of your oldest cousin?";
 		mouse click "Your answer"
 		type "Snowflake"
 		mouse click "Next".center_bottom()
 
-		# Экран настроек приватности
+		# Pricvacy settings screen
 		wait "Microsoft puts you in control"
 		mouse click "Accept".from_bottom(0).center_bottom()
 
-		# Экран настроки синхронизации устройств
+		# Device sync screen
 		wait "If you want timeline"
 		mouse click "No".from_bottom(0).center_bottom()
 
-		# Экран настройки Cortana
+		# Cortana settings screen
 		wait "To let Cortana provide"
 		mouse click "Not now".from_bottom(0).center_bottom()
 
-		# Далее идёт долгий процесс подготовки к первому запуску
+		# Long first launch preparation routine
 
-		# Ждем, когда появится рабочий стол
+		# Wait for the Desktop to appear
 		wait "Recycle Bin" timeout 10m
 
-		# Ждем ещё несколько секунд, на всякий случай
+		# Wait for several more seconds, just in case
 		sleep 5s
 	}
 }
 
-# Отключим режим экономии электроэнергии для мышки,
-# иначе она может "зависнуть"
+# Disable the power saving mode for the mouse
+# because the mouse might freeze at some point otherwise
 test win10_prepare: win10_installation {
 	win10 {
-		# Открываем окно "Device Manager"
+		# Open the "Device Manager"
 		mouse click "Type here to search"
 		wait "Top apps"
 		type "Device Manager"
 		wait "Open"
 		press Enter
 
-		# Открываем окно свойств устройства "USB Input Device"
+		# Open the "USB Input Device" preperties window
 		mouse dclick "Human Interface Devices"
 		mouse move 0 0
 		mouse dclick "USB Input Device"
 
-		# Переходим на вкладку "Power Management"
-		# и снимаем галочку с пункта "Allow the computer to turn off ..."
+		# Go to the "Power Management" tab
+		# and disable the "Allow the computer to turn off ..." option
 		mouse click "Power Management"
 		mouse click "Allow the computer"
 		sleep 5s
 
-		# Закрываем окно свойств устройства "USB Input Device"
+		# Close the "USB Input Device" window
 		press Enter
 		wait !"Power Management"
 
-		# Закрываем окно "Device Manager"
+		# Close the "Device Manager"
 		press LeftAlt+F4
 		wait !"Device Manager"
 	}

@@ -1,32 +1,36 @@
-# Тестирование процесса устновки и удаления приложения
+# Testing installation and removing a program
 
-Для данного примера мы написали "игрушечное" приложение MySuperApp и упаковали его в инсталлятор. Мы хотим убедиться, что инсталлятор корректно устанавливает и удаляет приложение, а также правильно записывает ключи в реестр. Все эти проверки мы автоматизировали и оформили в виде тестового сценария на языке Testo Lang.
+For this example, we created a toy-app named MySuperApp and packed it inside an installer. We want to test that MySuperApp is installed and removed correctly. Additionally, we want to check that the installer successfully writes the necessary keys into the register. We automated all these checks with a Testo Lang script.
 
-## Структура каталога
-- `dist` - содержит скомпилированный дистрибутив приложения MySuperApp.
-- `os_installation.testo` - содержит подготовительную часть тестов, в которой происходит установка операционной системы на виртуальную машину.
-- `tests.testo` - содержит те тесты, которые уже непосредственно проверяют работоспособность приложения MySuperApp.
+## Directory overview
 
-## Какие тесты входят в этот пример?
-- Тест `install_my_super_app` - проверяет, что установка программы MySuperApp отрабатывает без ошибок.
-- Тест `test_desktop_icon` - проверяет, что приложение MySuperApp корректно запускается с помощью ярлыка на рабочем столе. Таким образом мы убеждаемся, что инсталлятор установил все файлы на свои места.
-- Тест `test_context_menu` - проверяет, что приложение MySuperApp запускает через контекстное меню Проводника, которое появилось после установки приложения MySuperApp. Таким образом мы убеждаемся, что инсталлятор корректно записал ключи в реестр.
-- Тест `uninstall_my_super_app` - проверяет, что удаление программы MySuperApp отрабатывает без ошибок.
+- `dist` - contains the pre-compiled MySuperApp package.
+- `os_installation.testo` - contrains the preparatory tests, including the operating system installation.
+- `tests.testo` - contains tests actually validating MySuperApp.
 
-## Как мне запустить этот пример на моей машине?
+## What tests does this example include?
 
-Во-первых, Вам потребуется скачать данный репозиторий на свой компьютер. Сделать это можно следующей командой:
+- `install_my_super_app` - checks the MySuperApp installation correctness.
+- `test_desktop_icon` - checks that MySuperApp correctly starts with the desktop icon. Therefore we make sure that the installator placed all the files where they belong.
+- `test_context_menu` - checks that MySuperApp correctly starts with the context menu entry which should have been added after the MySuperApp installation. Therefore we make sure that the installator placed all the necessary keys into the Windows registry.
+- `uninstall_my_super_app` - check the MySuperApp removing correctness.
+
+## How can I run this example on my computer?
+
+First, you need to download this repository on your computer:
 
 ```
 git clone https://github.com/testo-lang/testo-examples.git
 ```
 
-Во-вторых, Вам необходимо установить на свою машину платформу Testo. Скачать её можно с официального сайта на [странице загрузок](https://testo-lang.ru/ru/downloads). С инструкцией по установке платформы Testo на Вашу операционную систему Вы можете ознакомиться [здесь](https://testo-lang.ru/ru/docs/getting_started/getting_started).
+Second, you need to [download](https://testo-lang.ru/en/downloads) and install the Testo Framework. You will find instructions on getting started instructions [here](https://testo-lang.ru/en/docs/getting_started/getting_started)
 
-В-третьих, в данном примере мы проверям работу приложения MySuperApp на операционной системе Windows 10. Установка операционной системы также является одним из тестов. Поэтому Вам необходимо скачать установочный образ Windows 10. Сделать это можно на [этой странице](https://www.microsoft.com/ru-ru/software-download/windows10ISO). При выборе языка укажите язык "Английский". Данный пример тестировался с Windows 10 May 2020 Update (build number 10.0.19041). Для других версий Windows 10 возможно потребуется скорректировать тестовый сцераний.
+Third, we've used the Windows 10 as the operating system to run MySuperApp. The Windows 10 installation is also a test (part of the tests hierarchy). Therefore you need to [download](https://www.microsoft.com/en-us/software-download/windows10ISO) the Windows 10 disk image. This example was tested with the Windows 10 May 2020 Update (build number 10.0.19041). For other Windows 10 versions the test scripts might need to be adjusted.
 
-Поздравляем! Теперь Вы готовы запустить данный пример на своей машине. Перейдите в каталог с данным примером и запустите следующию команду:
+Congratulations! Now you're ready to run this example on your computer. Go to this example directory and run the following command:
 
 ```
 sudo testo run ./tests.testo --param ISO_DIR /path/to/iso/dir
 ```
+
+where the `/path/to/iso/dir` is the path to the directory containing the Windows 10 disk image.
