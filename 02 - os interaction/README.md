@@ -21,7 +21,7 @@ First, you need to download this repository on your computer:
 git clone https://github.com/testo-lang/testo-examples.git
 ```
 
-Second, you need to [download](https://testo-lang.ru/en/downloads) and install the Testo Framework. You will find instructions on getting started instructions [here](https://testo-lang.ru/en/docs/getting_started/getting_started)
+Second, you need to [download](https://github.com/log0div0/testo#downloads) and install the Testo Framework.
 
 Third, we've used the Windows 10 as the operating system to run MySuperApp. The Windows 10 installation is also a test (part of the tests hierarchy). Therefore you need to [download](https://www.microsoft.com/en-us/software-download/windows10ISO) the Windows 10 disk image. This example was tested with the Windows 10 May 2020 Update (build number 10.0.19041). For other Windows 10 versions the test scripts might need to be adjusted.
 
